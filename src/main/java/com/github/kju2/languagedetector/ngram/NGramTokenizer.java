@@ -39,7 +39,7 @@ public class NGramTokenizer {
 		return ngrams;
 	}
 
-	private int maxNumberOfNGrams(CharSequence spacePaddedText) {
-		return spacePaddedText.length() * maxNGramLength;
+	private int maxNumberOfNGrams(CharSequence text) {
+		return text.length() * maxNGramLength;
 	}
 }

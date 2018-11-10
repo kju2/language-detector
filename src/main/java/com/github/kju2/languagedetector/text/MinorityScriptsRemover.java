@@ -88,7 +88,7 @@ public class MinorityScriptsRemover implements TextModifier {
 			script = determineUnicodeScript(script, c);
 
 			if (minorityScripts.contains(script)) {
-				// this code point belongs to a minority script and should be replaced with a space
+				// This code point belongs to a minority script and should be replaced with a space
 				// unless the last character added was already a space.
 				int lastIndex = textWithoutMinorityScripts.length() - 1;
 				if (lastIndex > 0 && textWithoutMinorityScripts.charAt(lastIndex) != Texts.SPACE) {

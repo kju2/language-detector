@@ -1,9 +1,11 @@
 package com.github.kju2.languagedetector.language;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @AllArgsConstructor
+@EqualsAndHashCode
 @Getter
 public class LanguageProbability implements Comparable<LanguageProbability> {
 
@@ -11,8 +13,7 @@ public class LanguageProbability implements Comparable<LanguageProbability> {
 	private final float probability;
 
 	/**
-	 * the "better" one comes before the worse. First order by probability descending (1 to 0). Then
-	 * order by language ascending (a to z).
+	 * Order by probability descending (1.0 to 0.0). Then order by language ascending (a to z).
 	 */
 	@Override
 	public int compareTo(LanguageProbability o) {

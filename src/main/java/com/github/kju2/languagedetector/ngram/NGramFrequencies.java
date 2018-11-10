@@ -6,10 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.github.kju2.languagedetector.language.Language;
-import com.optimaize.langdetect.profiles.LanguageProfile;
+import com.github.kju2.languagedetector.language.LanguageProfile;
 
 /**
  * Contains frequency information for n-grams coming from multiple {@link LanguageProfile}s.
@@ -18,8 +16,6 @@ import com.optimaize.langdetect.profiles.LanguageProfile;
  * those languages in relation to other n-grams of the same length in those same languages.
  * <p/>
  * Immutable by definition (can't make Arrays unmodifiable).
- *
- * @author Fabian Kessler
  */
 public final class NGramFrequencies {
 
@@ -42,16 +38,16 @@ public final class NGramFrequencies {
 	 * @throws java.lang.IllegalArgumentException if languageProfiles or gramLengths is empty, or if
 	 *         one of the languageProfiles does not have the grams of the required sizes.
 	 */
-	public static NGramFrequencies of(@NotNull Collection<LanguageProfile> languageProfiles) throws IllegalArgumentException {
+	public static NGramFrequencies of(Collection<LanguageProfile> languageProfiles) throws IllegalArgumentException {
 		int languagesIndex = -1;
 		List<Language> languages = new ArrayList<>(languageProfiles.size());
 		Map<String, float[]> nGramLanguageProbabilitiesMap = new HashMap<>();
 
 		for (LanguageProfile languageProfile : languageProfiles) {
 			languagesIndex += 1;
-			languages.add(Language.fromCode(languageProfile.getLocale()));
+			languages.add(languageProfile.getLanguage());
 
-			for (Map.Entry<String, Integer> x : languageProfile.iterateGrams()) {
+			for (Map.Entry<String, Integer> x : languageProfile.getNGrams().entrySet()) {
 				String nGram = x.getKey();
 				float frequency = x.getValue();
 				float[] nGramLanguageProbabilities = nGramLanguageProbabilitiesMap.get(nGram);
@@ -59,7 +55,7 @@ public final class NGramFrequencies {
 					nGramLanguageProbabilities = new float[languageProfiles.size()];
 					nGramLanguageProbabilitiesMap.put(nGram, nGramLanguageProbabilities);
 				}
-				float nGramLanguageProbability = frequency / languageProfile.getNumGramOccurrences(nGram.length());
+				float nGramLanguageProbability = frequency / languageProfile.getNumberOfOccurrencesForNGramsOfLength(nGram.length());
 				nGramLanguageProbabilities[languagesIndex] = nGramLanguageProbability;
 			}
 		}

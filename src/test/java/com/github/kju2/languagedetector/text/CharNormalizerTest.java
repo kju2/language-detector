@@ -6,11 +6,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/**
- * @author Nakatani Shuyo
- * @author Fabian Kessler
- * @author kju2
- */
 public class CharNormalizerTest {
 
 	@ParameterizedTest

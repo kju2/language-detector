@@ -3,93 +3,82 @@
 Language Detection Library for Java
 
     <dependency>
-        <groupId>com.optimaize.languagedetector</groupId>
-        <artifactId>language-detector</artifactId>
-        <version>0.6</version>
+        <!-- TODO --!>
     </dependency>
 
 
 ## Language Support
 
-### 71 Built-in Language Profiles
+### 68 Built-in Language Profiles
 
-1. af Afrikaans
-1. an Aragonese
-1. ar Arabic
-1. ast Asturian
-1. be Belarusian
-1. br Breton
-1. ca Catalan
-1. bg Bulgarian
-1. bn Bengali
-1. cs Czech
-1. cy Welsh
-1. da Danish
-1. de German
-1. el Greek
-1. en English
-1. es Spanish
-1. et Estonian
-1. eu Basque
-1. fa Persian
-1. fi Finnish
-1. fr French
-1. ga Irish
-1. gl Galician
-1. gu Gujarati
-1. he Hebrew
-1. hi Hindi
-1. hr Croatian
-1. ht Haitian
-1. hu Hungarian
-1. id Indonesian
-1. is Icelandic
-1. it Italian
-1. ja Japanese
-1. km Khmer
-1. kn Kannada
-1. ko Korean
-1. lt Lithuanian
-1. lv Latvian
-1. mk Macedonian
-1. ml Malayalam
-1. mr Marathi
-1. ms Malay
-1. mt Maltese
-1. ne Nepali
-1. nl Dutch
-1. no Norwegian
-1. oc Occitan
-1. pa Punjabi
-1. pl Polish
-1. pt Portuguese
-1. ro Romanian
-1. ru Russian
-1. sk Slovak
-1. sl Slovene
-1. so Somali
-1. sq Albanian
-1. sr Serbian
-1. sv Swedish
-1. sw Swahili
-1. ta Tamil
-1. te Telugu
-1. th Thai
-1. tl Tagalog
-1. tr Turkish
-1. uk Ukrainian
-1. ur Urdu
-1. vi Vietnamese
-1. wa Walloon
-1. yi Yiddish
-1. zh-cn Simplified Chinese
-1. zh-tw Traditional Chinese
-
-User danielnaber has made available a profile for Esperanto on his website, see open tasks.
-
-There are two kinds of profiles. The standard ones created from Wikipedia articles and similar.
-And the "short text" profiles created from Twitter tweets. Fewer language profiles exist for the
-short text, more would be available, see https://github.com/optimaize/language-detector/issues/57
+1. AFRIKAANS (af)
+2. ALBANIAN (sq)
+3. ARABIC (ar)
+4. ARAGONESE (an)
+5. BASQUE (eu)
+6. BELARUSIAN (be)
+7. BENGALI (bn)
+8. BRETON (br)
+9. BULGARIAN (bg)
+10. CATALAN (ca)
+11. CENTRAL_KHMER (km)
+12. CHINESE (zh)
+13. CROATIAN (hr)
+14. CZECH (cs)
+15. DANISH (da)
+16. DUTCH (nl)
+17. ENGLISH (en)
+18. ESTONIAN (et)
+19. FINNISH (fi)
+20. FRENCH (fr)
+21. GALICIAN (gl)
+22. GERMAN (de)
+23. GREEK (el)
+24. GUJARATI (gu)
+25. HAITIAN (ht)
+26. HEBREW (he)
+27. HINDI (hi)
+28. HUNGARIAN (hu)
+29. ICELANDIC (is)
+30. INDONESIAN (id)
+31. IRISH (ga)
+32. ITALIAN (it)
+33. JAPANESE (ja)
+34. KANNADA (kn)
+35. KOREAN (ko)
+36. LATVIAN (lv)
+37. LITHUANIAN (lt)
+38. MACEDONIAN (mk)
+39. MALAY (ms)
+40. MALAYALAM (ml)
+41. MALTESE (mt)
+42. MARATHI (mr)
+43. NEPALI (ne)
+44. NORWEGIAN (no)
+45. OCCITAN (oc)
+46. PANJABI (pa)
+47. PERSIAN (fa)
+48. POLISH (pl)
+49. PORTUGUESE (pt)
+50. ROMANIAN (ro)
+51. RUSSIAN (ru)
+52. SERBIAN (sr)
+53. SLOVAK (sk)
+54. SLOVENIAN (sl)
+55. SOMALI (so)
+56. SPANISH (es)
+57. SWAHILI (sw)
+58. SWEDISH (sv)
+59. TAGALOG (tl)
+60. TAMIL (ta)
+61. TELUGU (te)
+62. THAI (th)
+63. TURKISH (tr)
+64. UKRAINIAN (uk)
+65. URDU (ur)
+66. VIETNAMESE (vi)
+67. WELSH (cy)
+68. YIDDISH (yi)
 
 ### Other Languages
 
@@ -128,20 +117,7 @@ library you can get at this time. If it doesn't need to be Java, you may want to
 
 #### Language Detection for your Text
 
-    //load all languages:
-    List<LanguageProfile> languageProfiles = new LanguageProfileReader().readAllBuiltIn();
-
-    //build language detector:
-    LanguageDetector languageDetector = LanguageDetectorBuilder.create(NgramExtractors.standard())
-            .withProfiles(languageProfiles)
-            .build();
-
-    //create a text object factory
-    TextObjectFactory textObjectFactory = CommonTextObjectFactories.forDetectingOnLargeText();
-
-    //query:
-    TextObject textObject = textObjectFactory.forText("my text");
-    Optional<LdLocale> lang = languageDetector.detect(textObject);
+TODO
 
 
 #### Creating Language Profiles for your Training Text
@@ -172,19 +148,9 @@ For memory considerations see https://github.com/optimaize/language-detector/wik
 This project is a fork of a fork, the original author is Nakatani Shuyo.
 For detail see https://github.com/optimaize/language-detector/wiki/History-and-Changes
 
-
-## Where it's used
-
-An adapted version of this is used by the http://www.NameAPI.org server.
-
-https://www.languagetool.org/ is a proof-reading software for LibreOffice/OpenOffice, for the Desktop and for Firefox.
-
-
-
 ## License
 
 Apache 2 (business friendly)
-
 
 
 ## Authors
@@ -193,13 +159,3 @@ Nakatani Shuyo, Fabian Kessler, Francois ROLAND, Robert Theis
 
 For detail see https://github.com/optimaize/language-detector/wiki/Authors
 
-
-## For Maven Users
-
-The project is in Maven central http://search.maven.org/#artifactdetails%7Ccom.optimaize.languagedetector%7Clanguage-detector%7C0.4%7Cjar this is the latest version:
-
-    <dependency>
-        <groupId>com.optimaize.languagedetector</groupId>
-        <artifactId>language-detector</artifactId>
-        <version>0.6</version>
-    </dependency>

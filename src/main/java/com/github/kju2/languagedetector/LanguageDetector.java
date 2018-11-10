@@ -8,18 +8,12 @@ import java.util.Random;
 
 import com.github.kju2.languagedetector.language.Language;
 import com.github.kju2.languagedetector.language.LanguageProbability;
+import com.github.kju2.languagedetector.language.LanguageProfiles;
 import com.github.kju2.languagedetector.ngram.NGramFilters;
 import com.github.kju2.languagedetector.ngram.NGramFrequencies;
 import com.github.kju2.languagedetector.ngram.NGramTokenizer;
 import com.github.kju2.languagedetector.text.TextPreprocessor;
-import com.optimaize.langdetect.cybozu.util.Util;
-import com.optimaize.langdetect.profiles.LanguageProfileReader;
 
-/**
- * @author Nakatani Shuyo
- * @author Fabian Kessler
- * @author Elmer Garduno
- */
 public class LanguageDetector {
 	/**
 	 * Additive (Laplace/Lidstone) smoothing parameter.
@@ -31,8 +25,7 @@ public class LanguageDetector {
 	/**
 	 * This is used when no custom seed was passed in. By using the same seed for different calls,
 	 * the results are consistent also. Changing this number means that users of the library might
-	 * suddenly see other results after updating. So don't change it hastily. I chose a prime number
-	 * *clueless*. See https://github.com/optimaize/language-detector/issues/14
+	 * suddenly see other results after updating. So don't change it hastily.
 	 */
 	private static final long DEFAULT_SEED = 41L;
 
@@ -48,7 +41,7 @@ public class LanguageDetector {
 	private final float minimalConfidence = 0.9999f;
 
 	public LanguageDetector() throws IOException {
-		ngramFrequencyData = NGramFrequencies.of(new LanguageProfileReader().readAllBuiltIn());
+		ngramFrequencyData = NGramFrequencies.of(LanguageProfiles.builtInLanguages().values());
 	}
 
 	public Language detectPrimaryLanguageOf(String text) {
@@ -107,7 +100,7 @@ public class LanguageDetector {
 		for (int i = 0; i < ITERATION_LIMIT; i++) {
 			int r = rand.nextInt(ngrams.size());
 			updateLangProb(probabilities, ngrams.get(r), alpha);
-			if (i % 5 == 0 && Util.normalizeProb(probabilities) > CONV_THRESHOLD) {
+			if (i % 5 == 0 && normalizeAndReturnMaximum(probabilities) > CONV_THRESHOLD) {
 				break; // terminate early if a language has a very high probability
 			}
 		}
@@ -123,5 +116,19 @@ public class LanguageDetector {
 			list.add(new LanguageProbability(ngramFrequencyData.getLanguage(i), probabilities[i]));
 		}
 		return list;
+	}
+
+	public float normalizeAndReturnMaximum(float[] probabilities) {
+		float sum = 0f;
+		for (int i = 0; i < probabilities.length; ++i) {
+			sum += probabilities[i];
+		}
+
+		float max = 0f;
+		for (int i = 0; i < probabilities.length; ++i) {
+			float p = probabilities[i] = probabilities[i] / sum;
+			max = Math.max(max, p);
+		}
+		return max;
 	}
 }

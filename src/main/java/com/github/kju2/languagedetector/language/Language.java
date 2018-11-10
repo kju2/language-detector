@@ -1,7 +1,5 @@
 package com.github.kju2.languagedetector.language;
 
-import com.optimaize.langdetect.i18n.LdLocale;
-
 public enum Language {
 	UNKNOWN("unknown"),
 	ABKHAZIAN("ab"),
@@ -11,6 +9,7 @@ public enum Language {
 	ALBANIAN("sq"),
 	AMHARIC("am"),
 	ARABIC("ar"),
+	ARAGONESE("an"),
 	ARMENIAN("hy"),
 	ASSAMESE("as"),
 	AYMARA("ay"),
@@ -170,19 +169,12 @@ public enum Language {
 		code = languageCode;
 	}
 
-	/**
-	 * @deprecated Used to convert from old {@code LdLocale}.<br/>
-	 *             Can be removed when {@code LdLocale} is removed.
-	 */
-	@Deprecated
-	public static Language fromCode(LdLocale language) {
-		if (language == null) {
-			return Language.UNKNOWN;
-		}
-
-		for (Language l : Language.values()) {
-			if (l.code.equals(language.getLanguage())) {
-				return l;
+	public static Language from(String str) {
+		if (str != null) {
+			for (Language l : Language.values()) {
+				if (l.code.equalsIgnoreCase(str) || l.name().equalsIgnoreCase(str)) {
+					return l;
+				}
 			}
 		}
 		return Language.UNKNOWN;

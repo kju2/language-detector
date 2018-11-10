@@ -3,11 +3,6 @@ package com.github.kju2.languagedetector.text;
 /**
  * Normalize the given characters to improve detection rate.
  * (https://www.slideshare.net/shuyo/language-detection-library-for-java slide 21+)
- *
- * @author Nakatani Shuyo
- * @author Fabian Kessler
- * @author aoking
- * @author kju2
  */
 public class CharNormalizer implements TextModifier {
 
