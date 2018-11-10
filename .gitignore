@@ -1,3 +1,29 @@
-/target
-/language-detector.iml
-.idea/
+# Apple OS X
+.DS_Store
+
+# Configuration files
+.git-credentials
+.gitconfig
+.log
+
+# Hidden Files
+.*/
+
+# IDEs
+
+## Eclipse
+.project
+.classpath
+.settings
+
+## Idea
+.idea
+
+## Netbeans
+nbproject
+
+# Maven
+/pom.xml.versionsBackup
+
+# Java
+target
