@@ -29,8 +29,14 @@ public class CharNormalizerTest {
 
 	@ParameterizedTest
 	@ValueSource(chars = { '#', ',', '\'', '"', '!', '@', '.', ':', ';', '$', '%', '^', '&', '*', '(', ')', '+', '-', '=', '}', ' ', '\u00a0', '\u0000', '\u0009', '\u00a1', '0', '5', '9' })
-	void givenPunctuationAndSimilarCharactersThenReturnASpace(char input) {
-		assertEquals(' ', CharNormalizer.normalize(input));
+	void givenAPunctuationOrSimilarCharactersThenReturnASpace(char input) {
+		assertEquals(Texts.SPACE, CharNormalizer.normalize(input));
+	}
+
+	@ParameterizedTest
+	@ValueSource(chars = { ' ', '\n', '\r', '\t', '\u0008', '\u0009', '\u00a0', '\u2007', '\u202f' })
+	void givenAWhitespaceCharacterThenReturnASpace(char input) {
+		assertEquals(Texts.SPACE, CharNormalizer.normalize(input));
 	}
 
 	@ParameterizedTest
