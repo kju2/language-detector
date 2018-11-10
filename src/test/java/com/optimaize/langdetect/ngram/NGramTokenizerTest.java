@@ -33,13 +33,13 @@ public class NGramTokenizerTest {
 	@Test
 	void givenNoTokenFilterThenNothingIsFiltered() {
 		NGramTokenizer tokenizerWithNoFilter = new NGramTokenizer(1, 2, null);
-		assertEquals(Arrays.asList(" ", " a", "a", "a ", " ", "  ", " ", " b", "b", "b ", " "), tokenizerWithNoFilter.tokenize("a  b"));
+		assertEquals(Arrays.asList(" ", " a", "a", "a ", " ", "  ", " ", " b", "b", "b ", " "), tokenizerWithNoFilter.tokenize(" a  b "));
 	}
 
 	@Test
 	void givenTheHasNonWhitespaceCharactersFilterThenAllTokensHaveAtLeastOneCharacter() {
 		NGramTokenizer tokenizerWithNoFilter = new NGramTokenizer(1, 2, NGramFilters.HAS_NON_WHITESPACE_CHARACTERS);
-		assertEquals(Arrays.asList(" a", "a", "a ", " b", "b", "b "), tokenizerWithNoFilter.tokenize("a b"));
+		assertEquals(Arrays.asList(" a", "a", "a ", " b", "b", "b "), tokenizerWithNoFilter.tokenize(" a b "));
 	}
 
 	@ParameterizedTest(name = "{index}: ''{0}''")
@@ -49,11 +49,10 @@ public class NGramTokenizerTest {
 	}
 
 	static Stream<Arguments> tokenizerProvider() {
-		return Stream.of(arguments(null, Collections.emptyList()), arguments("", Collections.emptyList()), arguments(" ", Collections.emptyList()),
-				arguments("a", Arrays.asList(" a", " a ", "a", "a ")), arguments(" a", Arrays.asList(" a", " a ", "a", "a ")), arguments("a ", Arrays.asList(" a", " a ", "a", "a ")),
-				arguments(" a ", Arrays.asList(" a", " a ", "a", "a ")), arguments("ab", Arrays.asList(" a", " ab", "a", "ab", "ab ", "b", "b ")),
-				arguments("aa b", Arrays.asList(" a", " aa", "a", "aa", "aa ", "a", "a ", "a b", " b", " b ", "b", "b ")),
-				arguments("Foo Bar", Arrays.asList(" F", " Fo", "F", "Fo", "Foo", "o", "oo", "oo ", "o", "o ", "o B", " B", " Ba", "B", "Ba", "Bar", "a", "ar", "ar ", "r", "r ")));
+		return Stream.of(arguments(null, Collections.emptyList()), arguments("", Collections.emptyList()), arguments(" ", Collections.emptyList()), arguments("a", Arrays.asList("a")),
+				arguments(" a", Arrays.asList(" a", "a")), arguments("a ", Arrays.asList("a", "a ")), arguments(" a ", Arrays.asList(" a", " a ", "a", "a ")),
+				arguments(" ab ", Arrays.asList(" a", " ab", "a", "ab", "ab ", "b", "b ")), arguments(" aa b ", Arrays.asList(" a", " aa", "a", "aa", "aa ", "a", "a ", "a b", " b", " b ", "b", "b ")),
+				arguments(" Foo Bar ", Arrays.asList(" F", " Fo", "F", "Fo", "Foo", "o", "oo", "oo ", "o", "o ", "o B", " B", " Ba", "B", "Ba", "Bar", "a", "ar", "ar ", "r", "r ")));
 	}
 
 	private NGramTokenizer createNGramTokenizer(int minNGramLength, int maxNGramLength) {

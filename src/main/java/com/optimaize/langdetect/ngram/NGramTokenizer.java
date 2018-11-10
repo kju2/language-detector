@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class NGramTokenizer {
-	private static final char SPACE = ' ';
-
 	private final int minNGramLength;
 	private final int maxNGramLength;
 	private final Predicate<String> tokenFilter;
@@ -28,12 +26,11 @@ public class NGramTokenizer {
 		if (text == null || text.length() == 0) {
 			return Collections.emptyList();
 		}
-		CharSequence spacePaddedText = ensureSpacePadding(text);
-		List<String> ngrams = new ArrayList<>(maxNumberOfNGrams(spacePaddedText));
-		int end = spacePaddedText.length();
+		List<String> ngrams = new ArrayList<>(maxNumberOfNGrams(text));
+		int end = text.length();
 		for (int start = 0; start < end; start++) {
 			for (int n = minNGramLength; n <= maxNGramLength && start + n <= end; n++) {
-				String ngram = spacePaddedText.subSequence(start, start + n).toString();
+				String ngram = text.subSequence(start, start + n).toString();
 				if (tokenFilter.test(ngram)) {
 					ngrams.add(ngram);
 				}
@@ -44,22 +41,5 @@ public class NGramTokenizer {
 
 	private int maxNumberOfNGrams(CharSequence spacePaddedText) {
 		return spacePaddedText.length() * maxNGramLength;
-	}
-
-	private CharSequence ensureSpacePadding(CharSequence text) {
-		int end = text.length() - 1;
-		if (end < 0 || (text.charAt(0) == SPACE && text.charAt(end) == SPACE)) {
-			return text;
-		}
-
-		StringBuilder sb = new StringBuilder();
-		if (text.charAt(0) != SPACE) {
-			sb.append(SPACE);
-		}
-		sb.append(text);
-		if (text.charAt(end) != SPACE) {
-			sb.append(SPACE);
-		}
-		return sb;
 	}
 }
