@@ -1,4 +1,4 @@
-package com.optimaize.langdetect.text;
+package com.github.kju2.languagedetector.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

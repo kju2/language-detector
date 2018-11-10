@@ -1,4 +1,4 @@
-package com.optimaize.langdetect.ngram;
+package com.github.kju2.languagedetector.ngram;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import com.github.kju2.languagedetector.ngram.NGramFilters;
 
 public class NGramFiltersTest {
 

@@ -1,4 +1,4 @@
-package com.optimaize.langdetect.text;
+package com.github.kju2.languagedetector.text;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class UrlRemoverTest {
+public class EmailRemoverTest {
 
-	private static final TextModifier remover = TextModifiers.URL_REMOVER;
+	private static final TextModifier remover = TextModifiers.EMAIL_REMOVER;
 
 	@ParameterizedTest
 	@ValueSource(strings = { "", "abc", "abc def ghi" })
@@ -21,7 +21,7 @@ public class UrlRemoverTest {
 
 	@Test
 	void givenAStringBuilderWithAnUrlThenReturnTheStringbuilderWithoutTheUrl() {
-		StringBuilder input = new StringBuilder("Example: http://example.com is a good example!");
+		StringBuilder input = new StringBuilder("Example: example@example.com is a good example!");
 		StringBuilder output = remover.apply(input);
 		assertEquals(input, output);
 		assertEquals("Example:  is a good example!", output.toString());
@@ -29,7 +29,7 @@ public class UrlRemoverTest {
 
 	@Test
 	void givenAStringBuilderWithSeveralUrlsThenReturnTheStringbuilderWithoutTheUrls() {
-		StringBuilder input = new StringBuilder("Example: http://example.com is a good example as is \"https://wikipedia.org\"!");
+		StringBuilder input = new StringBuilder("Example: example@example.com is a good example as is \"info@example.org\"!");
 		StringBuilder output = remover.apply(input);
 		assertEquals(input, output);
 		assertEquals("Example:  is a good example as is \"\"!", output.toString());

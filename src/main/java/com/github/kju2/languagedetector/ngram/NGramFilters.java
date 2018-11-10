@@ -1,4 +1,4 @@
-package com.optimaize.langdetect.ngram;
+package com.github.kju2.languagedetector.ngram;
 
 import java.util.function.Predicate;
 

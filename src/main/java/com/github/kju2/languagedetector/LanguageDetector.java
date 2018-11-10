@@ -1,4 +1,4 @@
-package com.optimaize.langdetect;
+package com.github.kju2.languagedetector;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -6,15 +6,14 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
 
+import com.github.kju2.languagedetector.language.Language;
+import com.github.kju2.languagedetector.language.LanguageProbability;
+import com.github.kju2.languagedetector.ngram.NGramFilters;
+import com.github.kju2.languagedetector.ngram.NGramFrequencies;
+import com.github.kju2.languagedetector.ngram.NGramTokenizer;
+import com.github.kju2.languagedetector.text.TextPreprocessor;
 import com.optimaize.langdetect.cybozu.util.Util;
-import com.optimaize.langdetect.language.Language;
-import com.optimaize.langdetect.language.LanguageProbability;
-import com.optimaize.langdetect.ngram.NGramFilters;
-import com.optimaize.langdetect.ngram.NGramFrequencies;
-import com.optimaize.langdetect.ngram.NGramTokenizer;
 import com.optimaize.langdetect.profiles.LanguageProfileReader;
-import com.optimaize.langdetect.textOld.CommonTextObjectFactories;
-import com.optimaize.langdetect.textOld.TextObjectFactory;
 
 /**
  * @author Nakatani Shuyo
@@ -29,7 +28,6 @@ public class LanguageDetector {
 	private static final int ITERATION_LIMIT = 1000;
 	private static final float CONV_THRESHOLD = 0.99999f;
 	private static final int BASE_FREQ = 10000;
-	private static final TextObjectFactory textObjectFactory = CommonTextObjectFactories.forDetectingOnLargeText();
 	/**
 	 * This is used when no custom seed was passed in. By using the same seed for different calls,
 	 * the results are consistent also. Changing this number means that users of the library might
@@ -40,6 +38,7 @@ public class LanguageDetector {
 
 	public final NGramFrequencies ngramFrequencyData;
 
+	private final TextPreprocessor textPreprocessor = TextPreprocessor.forDetection();
 	private final NGramTokenizer nGramTokenizer = new NGramTokenizer(1, 3, NGramFilters.HAS_NON_WHITESPACE_CHARACTERS);
 	private final float alpha = 0.05f;
 
@@ -52,25 +51,26 @@ public class LanguageDetector {
 		ngramFrequencyData = NGramFrequencies.of(new LanguageProfileReader().readAllBuiltIn());
 	}
 
-	public Language detectPrimaryLanguageOf(CharSequence text) {
+	public Language detectPrimaryLanguageOf(String text) {
+		return detectPrimaryLanguageOf(text != null ? new StringBuilder(text) : null);
+	}
+
+	public Language detectPrimaryLanguageOf(StringBuilder text) {
 		if (text == null || text.length() < 1) {
 			return Language.UNKNOWN;
 		}
+		CharSequence preprocessedText = textPreprocessor.prepare(text);
+		List<String> tokenizedText = nGramTokenizer.tokenize(preprocessedText);
+		PriorityQueue<LanguageProbability> languageCandidates = identifyLanguageCandidates(tokenizedText);
+		return selectPrimaryLanguage(languageCandidates);
+	}
 
-		PriorityQueue<LanguageProbability> probabilities = sortByProbability(detectBlock(textObjectFactory.forText(text)));
-		LanguageProbability best = probabilities.poll();
+	private Language selectPrimaryLanguage(PriorityQueue<LanguageProbability> languageCandidates) {
+		LanguageProbability best = languageCandidates.poll();
 		if (best != null && best.getProbability() >= minimalConfidence) {
 			return best.getLanguage();
 		}
 		return Language.UNKNOWN;
-	}
-
-	private PriorityQueue<LanguageProbability> sortByProbability(float[] probabilities) {
-		PriorityQueue<LanguageProbability> list = new PriorityQueue<>();
-		for (int i = 0; i < probabilities.length; ++i) {
-			list.add(new LanguageProbability(ngramFrequencyData.getLanguage(i), probabilities[i]));
-		}
-		return list;
 	}
 
 	private void updateLangProb(float[] prob, String ngram, float alpha) {
@@ -95,10 +95,9 @@ public class LanguageDetector {
 	/**
 	 * This is the original algorithm used for all text length. It is inappropriate for short text.
 	 */
-	public float[] detectBlock(CharSequence text) {
-		List<String> ngrams = nGramTokenizer.tokenize(text);
+	public PriorityQueue<LanguageProbability> identifyLanguageCandidates(List<String> ngrams) {
 		if (ngrams.isEmpty()) {
-			return new float[] {};
+			return new PriorityQueue<>();
 		}
 		float[] langprob = new float[ngramFrequencyData.numberOfLanguages()];
 		Random rand = new Random(DEFAULT_SEED);
@@ -115,6 +114,14 @@ public class LanguageDetector {
 		for (int j = 0; j < langprob.length; ++j) {
 			langprob[j] += probabilities[j];
 		}
-		return langprob;
+		return sortByProbability(langprob);
+	}
+
+	private PriorityQueue<LanguageProbability> sortByProbability(float[] probabilities) {
+		PriorityQueue<LanguageProbability> list = new PriorityQueue<>();
+		for (int i = 0; i < probabilities.length; ++i) {
+			list.add(new LanguageProbability(ngramFrequencyData.getLanguage(i), probabilities[i]));
+		}
+		return list;
 	}
 }
