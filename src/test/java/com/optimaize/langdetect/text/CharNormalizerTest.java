@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * @author Nakatani Shuyo
@@ -21,25 +22,25 @@ import org.junit.jupiter.params.provider.CsvSource;
 public class CharNormalizerTest {
 
 	@ParameterizedTest
-	@CsvSource({ "a", "A", "z", "Z", "o", "\u0061", "\u007a" })
+	@ValueSource(chars = { 'a', 'A', 'z', 'Z', 'o', '\u0061', '\u007a' })
 	void givenALatinCharacterThenReturnItUnchanged(char input) {
 		assertEquals(input, CharNormalizer.normalize(input));
 	}
 
 	@ParameterizedTest
-	@CsvSource({ "'#'", "','", "\'", "\"", "!", "@", ".", ":", ";", "$", "%", "^", "&", "*", "(", ")", "+", "-", "=", "}", "' '", "'\u00a0'", "'\u0000'", "'\u0009'", "'\u00a1'", "0", "5", "9" })
+	@ValueSource(chars = { '#', ',', '\'', '"', '!', '@', '.', ':', ';', '$', '%', '^', '&', '*', '(', ')', '+', '-', '=', '}', ' ', '\u00a0', '\u0000', '\u0009', '\u00a1', '0', '5', '9' })
 	void givenPunctuationAndSimilarCharactersThenReturnASpace(char input) {
 		assertEquals(' ', CharNormalizer.normalize(input));
 	}
 
 	@ParameterizedTest
-	@CsvSource({ "'\u06cc', '\u064a'", "'\u1ea0', '\u1ec3'", "'\u3041', '\u3042'", "'\u30b4', '\u30a2'", "'\u3105', '\u3105'", "'\u31B7', '\u3105'", "'\uac24', '\uac00'" })
+	@CsvSource({ "\u06cc, \u064a", "\u1ea0, \u1ec3", "\u3041, \u3042", "\u30b4, \u30a2", "\u3105, \u3105", "\u31B7, \u3105", "\uac24, \uac00" })
 	void miscNormalization(char input, char expectedOutput) {
 		assertEquals(expectedOutput, CharNormalizer.normalize(input));
 	}
 
 	@ParameterizedTest
-	@CsvSource({ "'\u66A8', '\u502A'", "'\u5EFC', '\u5039'", "'\u5BF6', '\u4E9E'", "'\u58EE', '\u4E71'", "'\u86FE', '\u4E5E'", "'\u5141', '\u4E19'", "'\u5800', '\u5742'", "'\u7984', '\u5F66'" })
+	@CsvSource({ "\u66A8, \u502A", "\u5EFC, \u5039", "\u5BF6, \u4E9E", "\u58EE, \u4E71", "\u86FE, \u4E5E", "\u5141, \u4E19", "\u5800, \u5742", "\u7984, \u5F66" })
 	void kanjiNormalization(char input, char expectedOutput) {
 		assertEquals(expectedOutput, CharNormalizer.normalize(input));
 	}
