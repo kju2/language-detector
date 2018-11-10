@@ -19,15 +19,15 @@ public class NGramTokenizerTest {
 	private static final NGramTokenizer tokenizer = new NGramTokenizer(1, 3, NGramFilters.HAS_NON_WHITESPACE_CHARACTERS);
 
 	@Test
-	void minNGramSizeIsBelowOneThrowsException() {
+	void minNGramLengthIsBelowOneThrowsException() {
 		Throwable exception = assertThrows(IllegalArgumentException.class, () -> createNGramTokenizer(0, 4));
-		assertEquals("'minNGramSize' must be greater than zero.", exception.getMessage());
+		assertEquals("'minNGramLength' must be greater than zero.", exception.getMessage());
 	}
 
 	@Test
-	void maxNGramSizeIsSmallerThanMinNGramSizeThrowsException() {
+	void maxNGramLengthIsSmallerThanMinNGramLengthThrowsException() {
 		Throwable exception = assertThrows(IllegalArgumentException.class, () -> createNGramTokenizer(5, 4));
-		assertEquals("'minNGramSize' must not be greater than 'maxNGramSize'.", exception.getMessage());
+		assertEquals("'minNGramLength' must not be greater than 'maxNGramLength'.", exception.getMessage());
 	}
 
 	@Test
