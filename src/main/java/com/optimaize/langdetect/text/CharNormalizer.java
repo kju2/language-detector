@@ -20,11 +20,6 @@ package com.optimaize.langdetect.text;
 public class CharNormalizer {
 
 	/**
-	 * Used as replacement for all unnecessary & problematic characters, e.g. '.', '\u00A0', ... .
-	 */
-	public static final char SPACE = ' ';
-
-	/**
 	 * All chars are either mapped to themselves or a normalized version.
 	 */
 	private static final char[] CHAR_MAP = new char[65536];
@@ -35,7 +30,7 @@ public class CharNormalizer {
 			if (c < 'A' || (c < 'a' && c > 'Z') || c > 'z') {
 				// Replace "C0 controls", "ASCII punctuation and symbols" (!, $, &, ...), ASCII
 				// digits, ASCII punctuation and symbols (?, @, ;, <, ...) with a space.
-				CHAR_MAP[c] = SPACE;
+				CHAR_MAP[c] = Texts.SPACE;
 			} else {
 				CHAR_MAP[c] = c;
 			}
@@ -48,7 +43,7 @@ public class CharNormalizer {
 					|| (block == Character.UnicodeBlock.LATIN_1_SUPPLEMENT && (c < '\u00C0'))) { // https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)
 				// Punctuation isn't a feature that distinguishes one language from others. Removing
 				// it, reduces the noise and helps detection.
-				CHAR_MAP[c] = SPACE;
+				CHAR_MAP[c] = Texts.SPACE;
 			} else if (block == Character.UnicodeBlock.ARABIC && c == '\u06cc') {
 				// https://en.wikipedia.org/wiki/Arabic_(Unicode_block)
 				// "Persian texts were detected as Arabic! ... high-frequency character 'yeh' is
@@ -324,7 +319,7 @@ public class CharNormalizer {
 	}
 
 	/**
-	 * @return the normalized character or a space ('\u0020') if the input character should be
+	 * @return the normalized character or a {@link Texts.SPACE} if the input character should be
 	 *         excluded.
 	 */
 	public static char normalize(char ch) {
