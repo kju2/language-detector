@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class UrlRemoverTest {
 
-	private static final TextRemover remover = TextRemovers.url;
+	private static final TextModifier remover = TextModifiers.URL_REMOVER;
 
 	@ParameterizedTest
 	@ValueSource(strings = { "", "abc", "abc def ghi" })

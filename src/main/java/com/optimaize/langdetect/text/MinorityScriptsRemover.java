@@ -21,7 +21,7 @@ import java.util.TreeSet;
  * removed from the text.
  * <li>If the threshold is 0.1 then the ratio 16/80 is above that and all code points kept.
  */
-public class MinorityScriptsRemover implements TextRemover {
+public class MinorityScriptsRemover implements TextModifier {
 
 	private final float threshold;
 

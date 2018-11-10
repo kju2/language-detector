@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class EmailRemoverTest {
 
-	private static final TextRemover remover = TextRemovers.email;
+	private static final TextModifier remover = TextModifiers.EMAIL_REMOVER;
 
 	@ParameterizedTest
 	@ValueSource(strings = { "", "abc", "abc def ghi" })

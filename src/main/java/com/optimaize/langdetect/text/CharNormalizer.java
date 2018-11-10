@@ -9,7 +9,7 @@ package com.optimaize.langdetect.text;
  * @author aoking
  * @author kju2
  */
-public class CharNormalizer {
+public class CharNormalizer implements TextModifier {
 
 	/**
 	 * All chars are either mapped to themselves or a normalized version.
@@ -316,5 +316,15 @@ public class CharNormalizer {
 	 */
 	public static char normalize(char ch) {
 		return CHAR_MAP[ch];
+	}
+
+	@Override
+	public StringBuilder apply(StringBuilder text) {
+		if (text != null) {
+			for (int i = 0; i < text.length(); i++) {
+				text.setCharAt(i, normalize(text.charAt(i)));
+			}
+		}
+		return text;
 	}
 }
