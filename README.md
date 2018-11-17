@@ -9,6 +9,15 @@ Language Detection Library for Java
     </dependency>
 
 
+## How to Use
+
+```java
+LanguageDetector detector = new LanguageDetector();
+
+String text = "This is the text you want to know the language it is written in.";
+Language detectedLanguage = detector.detectPrimaryLanguageOf(text));
+```
+
 ## Language Support
 
 ### 68 Built-in Language Profiles
@@ -113,19 +122,6 @@ it's unlikely one of the supported languages.)
 
 If you are looking for a language detector / language guesser library in Java, this seems to be the best open source
 library you can get at this time. If it doesn't need to be Java, you may want to take a look at https://code.google.com/p/cld2/
-
-
-## How to Use
-
-#### Language Detection for your Text
-
-TODO
-
-
-#### Creating Language Profiles for your Training Text
-
-See https://github.com/optimaize/language-detector/wiki/Creating-Language-Profiles
-
 
 ## How You Can Help
 
