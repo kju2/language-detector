@@ -14,6 +14,10 @@ public class LanguageProbability implements Comparable<LanguageProbability> {
 
 	/**
 	 * Order by probability descending (1.0 to 0.0). Then order by language ascending (a to z).
+	 * 
+	 * @param o the object to be compared.
+	 * @return a negative integer, zero, or a positive integer as this object is less than, equal
+	 *         to, or greater than the specified object.
 	 */
 	@Override
 	public int compareTo(LanguageProbability o) {

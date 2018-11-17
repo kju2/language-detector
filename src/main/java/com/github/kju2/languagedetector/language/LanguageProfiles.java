@@ -20,6 +20,9 @@ public class LanguageProfiles {
 
 	/**
 	 * Loads and caches all built-in language profiles.
+	 *
+	 * @return an immutable cache of the built-in language profiles.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public static Map<Language, LanguageProfile> builtInLanguages() throws IOException {
 		if (builtInLanguages == null) {

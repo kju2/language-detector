@@ -68,7 +68,8 @@ public final class LanguageProfile {
 
 	/**
 	 * Tells how often all n-grams of a certain length occurred.
-	 * 
+	 *
+	 * @param nGramLength is the length of the n-grams for which the counter should be returned.
 	 * @return 0 if no n-grams with that length occurred during training, otherwise the number of
 	 *         times n-grams of such length were encountered.
 	 */
@@ -80,6 +81,9 @@ public final class LanguageProfile {
 	 * Writes this {@link LanguageProfile} to an OutputStream in UTF-8.
 	 * <p>
 	 * Format is: ${frequency}\t${n-gram}\n
+	 *
+	 * @param outputStream is the stream that the {@link LanguageProfile} will be written to.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public void write(OutputStream outputStream) throws IOException {
 		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, Charset.forName("utf-8")))) {

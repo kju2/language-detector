@@ -11,10 +11,10 @@ import com.github.kju2.languagedetector.language.LanguageProfile;
 
 /**
  * Contains frequency information for n-grams coming from multiple {@link LanguageProfile}s.
- * <p/>
+ * <p>
  * For each n-gram string it knows the languages in which it occurs, and how frequent it occurs in
  * those languages in relation to other n-grams of the same length in those same languages.
- * <p/>
+ * <p>
  * Immutable by definition (can't make Arrays unmodifiable).
  */
 public final class NGramFrequencies {
@@ -33,11 +33,6 @@ public final class NGramFrequencies {
 	 */
 	private final List<Language> languages;
 
-	/**
-	 * @param gramLengths for example [1,2,3]
-	 * @throws java.lang.IllegalArgumentException if languageProfiles or gramLengths is empty, or if
-	 *         one of the languageProfiles does not have the grams of the required sizes.
-	 */
 	public static NGramFrequencies of(Collection<LanguageProfile> languageProfiles) throws IllegalArgumentException {
 		int languagesIndex = -1;
 		List<Language> languages = new ArrayList<>(languageProfiles.size());
@@ -78,12 +73,12 @@ public final class NGramFrequencies {
 	/**
 	 * Don't modify this data structure! (Can't make array immutable...)
 	 *
-	 * @return null if no language profile knows that ngram. entries are 0 for languages that don't
-	 *         know that ngram at all. The array is in the order of the {@link #getLanguageList()}
-	 *         language list, and has exactly that size. impl note: this way the caller can handle
-	 *         it more efficient than returning an empty array.
+	 * @param nGram is the n-gram for which the probabilities are requested.
+	 * @return null if no language profile knows that n-gram. entries are 0 for languages that don't
+	 *         know that n-gram at all. The array is in the order of the language list, and has
+	 *         exactly that size.
 	 */
-	public float[] getProbabilities(String ngram) {
-		return nGramLanguageProbabilitiesMap.get(ngram);
+	public float[] getProbabilities(String nGram) {
+		return nGramLanguageProbabilitiesMap.get(nGram);
 	}
 }

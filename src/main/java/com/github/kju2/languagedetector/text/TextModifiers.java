@@ -10,14 +10,14 @@ public class TextModifiers {
 
 	/**
 	 * Removes all URLs. Modifies the given {@link StringBuilder} instance.
-	 * <p/>
+	 * <p>
 	 * <b>WARNING</b>: Doesn't recognize URLs with internationalized domain names.
 	 */
 	public static final TextModifier URL_REMOVER = createRegexRemover("https?://[-_.?&~;+=/#0-9A-Za-z]+");
 
 	/**
 	 * Removes all emails. Modifies the given {@link StringBuilder} instance.
-	 * <p/>
+	 * <p>
 	 * <b>WARNING</b>: Doesn't recognize emails with internationalized domain names.
 	 */
 	public static final TextModifier EMAIL_REMOVER = createRegexRemover("[-_.0-9A-Za-z]+@[-_0-9A-Za-z]+[-_.0-9A-Za-z]+");

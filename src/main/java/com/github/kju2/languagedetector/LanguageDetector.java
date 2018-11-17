@@ -85,10 +85,9 @@ public class LanguageDetector {
 		return probabilities;
 	}
 
-	/**
-	 * This is the original algorithm used for all text length. It is inappropriate for short text.
-	 */
 	public PriorityQueue<LanguageProbability> identifyLanguageCandidates(List<String> ngrams) {
+		// This is the original algorithm used for all text length. It is inappropriate for short
+		// text.
 		if (ngrams.isEmpty()) {
 			return new PriorityQueue<>();
 		}

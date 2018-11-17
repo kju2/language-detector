@@ -17,9 +17,11 @@ import java.util.TreeSet;
  * Code points from minority scripts are kept if the ratio to the predominant script is above a
  * configurable threshold, e.g. a text contains 80 code points in Cyrillic, 16 code points in Latin
  * and 4 code points of punctuation.
+ * <ul>
  * <li>If the threshold is 0.3 then the ratio 16/80 is below that and all Latin code points are
- * removed from the text.
- * <li>If the threshold is 0.1 then the ratio 16/80 is above that and all code points kept.
+ * removed from the text.</li>
+ * <li>If the threshold is 0.1 then the ratio 16/80 is above that and all code points kept.</li>
+ * </ul>
  */
 public class MinorityScriptsRemover implements TextModifier {
 

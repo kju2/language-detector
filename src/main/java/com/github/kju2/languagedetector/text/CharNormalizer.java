@@ -306,7 +306,8 @@ public class CharNormalizer implements TextModifier {
 	}
 
 	/**
-	 * @return the normalized character or a {@link Texts.SPACE} if the input character should be
+	 * @param ch is the char to be normalized.
+	 * @return the normalized character or a {@link Texts#SPACE} if the input character should be
 	 *         excluded.
 	 */
 	public static char normalize(char ch) {
