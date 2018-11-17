@@ -3,7 +3,9 @@
 Language Detection Library for Java
 
     <dependency>
-        <!-- TODO --!>
+        	<groupId>io.github.kju2.languagedetector</groupId>
+		<artifactId>language-detector</artifactId>
+		<version>1.0.2</version>
     </dependency>
 
 
