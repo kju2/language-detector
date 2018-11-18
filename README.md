@@ -155,7 +155,7 @@ For detail see https://github.com/optimaize/language-detector/wiki/Authors
 
 
 ### Research Papers and Articles on Language Identification
-- [Automatic Language Identification in Texts: A Survey](https://arxiv.org/abs/1804.08186) (2018)
+- [Automatic Language Identification in Texts: A Survey (2018)](https://arxiv.org/abs/1804.08186)
 
 
 ### Libraries for Language Identification
