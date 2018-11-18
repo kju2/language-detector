@@ -15,7 +15,7 @@ Language Detection Library for Java
 LanguageDetector detector = new LanguageDetector();
 
 String text = "This is the text you want to know the language it is written in.";
-Language detectedLanguage = detector.detectPrimaryLanguageOf(text));
+Language detectedLanguage = detector.detectPrimaryLanguageOf(text);
 ```
 
 ## Language Support
