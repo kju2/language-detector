@@ -135,12 +135,6 @@ text. We might then be able to improve detection for your language.
 If you're a programmer, dig in the source and see what you can improve. Check the open tasks.
 
 
-## Memory Consumption
-
-Loading all 71 language profiles uses 74MB ram to store the data in memory.
-For memory considerations see https://github.com/optimaize/language-detector/wiki/Memory-Consumption
-
-
 ## History and Changes
 
 This project is a fork of a fork, the original author is Nakatani Shuyo.
@@ -157,3 +151,24 @@ Nakatani Shuyo, Fabian Kessler, Francois ROLAND, Robert Theis, Kju2
 
 For detail see https://github.com/optimaize/language-detector/wiki/Authors
 
+## References
+
+
+### Research Papers and Articles on Language Identification
+- [Automatic Language Identification in Texts: A Survey](https://arxiv.org/abs/1804.08186) (2018)
+
+
+### Libraries for Language Identification
+- Compact Language Detector 2 ([C++](https://github.com/CLD2Owners/cld2), 83 languages supported) uses Naïve Bayesian classifier for language identification. The library can handle HTML and is optimized for texts with 200 characters.
+- Compact Language Detector 3 ([C++](https://github.com/google/cld3), ? languages supported) is used in Chromium and based on a neural network. 
+- Langid ([C](https://github.com/saffsd/langid.c), [Javascript](https://github.com/saffsd/langid.js), [Python](https://github.com/saffsd/langid.py)) is a library for language detection with models for 97 languages included. It is based on [Langid.py: an off-the-shelf language identification tool (2012)](https://dl.acm.org/citation.cfm?id=2390475).
+- Language-Detection ([Java](https://github.com/shuyo/language-detection), [Wiki](https://code.google.com/archive/p/language-detection/), [Slides](https://www.slideshare.net/shuyo/language-detection-library-for-java)) for 53 languages. This is the origin of this library and unfortunately no longer maintained.
+
+
+### Webservices for Language Identification
+- [API Layer](https://apilayer.com)
+- [Cortal](http://www.cortical.io/detect-language.html)
+- [Detect Language](https://detectlanguage.com)
+- [Google Translation API](https://cloud.google.com/translate/docs/detecting-language)
+- [Microsoft Azure Cognitive Services](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-language-detection)
+- [UClassify](https://uclassify.com/browse/uclassify/language-detector)
