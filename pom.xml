@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.github.kju2.languagedetector</groupId>
@@ -25,7 +27,7 @@
 		<url>https://github.com/kju2/language-detector.git</url>
 		<tag>HEAD</tag>
 	</scm>
-	
+
 	<issueManagement>
 		<system>GitHub Issue Tracker</system>
 		<url>https://github.com/kju2/language-detector/issues</url>
@@ -53,9 +55,13 @@
 		<resources>
 			<resource>
 				<directory>${project.basedir}</directory>
+				<targetPath>META-INF</targetPath>
 				<includes>
-					<include>LICENSE*</include>
+					<include>LICENSE</include>
 				</includes>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
 			</resource>
 		</resources>
 		<plugins>
@@ -91,6 +97,7 @@
 							<failOnWarning>true</failOnWarning>
 							<ignoredUnusedDeclaredDependencies>
 								<ignoredUnusedDeclaredDependency>org.projectlombok:lombok</ignoredUnusedDeclaredDependency>
+								<ignoredUnusedDeclaredDependency>org.junit.jupiter:junit-jupiter-engine:jar</ignoredUnusedDeclaredDependency>
 							</ignoredUnusedDeclaredDependencies>
 						</configuration>
 					</execution>
@@ -223,6 +230,11 @@
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>5.3.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

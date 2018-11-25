@@ -14,7 +14,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class LanguageProfiles {
 
-	static final String LANGUAGE_PROFILE_DIRECTORY = "languages/";
+	static final String LANGUAGE_PROFILE_DIRECTORY = "models/";
 
 	private static Map<Language, LanguageProfile> builtInLanguages = null;
 
@@ -26,7 +26,7 @@ public class LanguageProfiles {
 	 */
 	public static Map<Language, LanguageProfile> builtInLanguages() throws IOException {
 		if (builtInLanguages == null) {
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(LanguageProfiles.class.getClassLoader().getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY)))) {
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY)))) {
 				builtInLanguages = new EnumMap<>(Language.class);
 				for (Language language : reader.lines().map(Language::from).filter(l -> l != Language.UNKNOWN).collect(Collectors.toSet())) {
 					builtInLanguages.put(language, readBuiltIn(language));
@@ -39,7 +39,7 @@ public class LanguageProfiles {
 	}
 
 	private static LanguageProfile readBuiltIn(Language language) throws IOException {
-		try (InputStream in = LanguageProfiles.class.getClassLoader().getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + language.name())) {
+		try (InputStream in = LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + language.name())) {
 			return LanguageProfile.read(language, in);
 		}
 	}
