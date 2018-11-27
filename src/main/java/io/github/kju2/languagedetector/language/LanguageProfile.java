@@ -2,10 +2,11 @@ package io.github.kju2.languagedetector.language;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.Collections;
@@ -78,22 +79,19 @@ public final class LanguageProfile {
 	}
 
 	/**
-	 * Writes this {@link LanguageProfile} to an OutputStream in UTF-8.
+	 * Writes this {@link LanguageProfile} to a file in UTF-8.
 	 * <p>
 	 * Format is: ${frequency}\t${n-gram}\n
 	 *
-	 * @param outputStream is the stream that the {@link LanguageProfile} will be written to.
+	 * @param file is the file that the {@link LanguageProfile} will be written to.
 	 * @throws IOException if an I/O error occurs.
 	 */
-	public void write(OutputStream outputStream) throws IOException {
-		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, Charset.forName("utf-8")))) {
-			Iterator<String> iter = nGrams.entrySet()
-					.stream()
-					.sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-					.map(e -> e.getValue().toString() + "\t" + e.getKey() + "\n")
-					.iterator();
+	public void write(File file) throws IOException {
+		Iterator<Entry<String, Integer>> iter = nGrams.entrySet().stream().sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue())).iterator();
+		try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), Charset.forName("utf-8")))) {
 			while (iter.hasNext()) {
-				writer.write(iter.next());
+				Entry<String, Integer> entry = iter.next();
+				writer.write(String.format("%d\t%s\n", entry.getValue(), entry.getKey()));
 			}
 		}
 	}
