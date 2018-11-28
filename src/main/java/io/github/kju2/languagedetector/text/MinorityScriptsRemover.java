@@ -28,7 +28,7 @@ public class MinorityScriptsRemover implements TextModifier {
 	private final float threshold;
 
 	public MinorityScriptsRemover() {
-		this(0.3f);
+		this(0.4f);
 	}
 
 	public MinorityScriptsRemover(float threshold) {
