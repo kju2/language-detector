@@ -1,6 +1,7 @@
 package io.github.kju2.languagedetector.language;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,7 +15,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class LanguageProfiles {
 
-	static final String LANGUAGE_PROFILE_DIRECTORY = "models/";
+	static final String LANGUAGE_PROFILE_DIRECTORY = "models";
 
 	private static Map<Language, LanguageProfile> builtInLanguages = null;
 
@@ -39,7 +40,7 @@ public class LanguageProfiles {
 	}
 
 	private static LanguageProfile readBuiltIn(Language language) throws IOException {
-		try (InputStream in = LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + language.name())) {
+		try (InputStream in = LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + File.pathSeparator + language.name())) {
 			return LanguageProfile.read(language, in);
 		}
 	}
