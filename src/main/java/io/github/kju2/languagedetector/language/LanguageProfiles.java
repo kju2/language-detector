@@ -14,7 +14,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class LanguageProfiles {
 
-	static final String LANGUAGE_PROFILE_DIRECTORY = "models/";
+	static final String LANGUAGE_PROFILE_DIRECTORY = "models";
 
 	private static Map<Language, LanguageProfile> builtInLanguages = null;
 
@@ -39,7 +39,7 @@ public class LanguageProfiles {
 	}
 
 	private static LanguageProfile readBuiltIn(Language language) throws IOException {
-		try (InputStream in = LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + language.name())) {
+		try (InputStream in = LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + "/" + language.name())) {
 			return LanguageProfile.read(language, in);
 		}
 	}
