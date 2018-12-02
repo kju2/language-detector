@@ -1,20 +1,17 @@
 package io.github.kju2.languagedetector.language;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class LanguageProfiles {
 
-	static final String LANGUAGE_PROFILE_DIRECTORY = "models";
+	static final String LANGUAGE_PROFILE_DIRECTORY = "models/";
 
 	private static Map<Language, LanguageProfile> builtInLanguages = null;
 
@@ -26,10 +23,11 @@ public class LanguageProfiles {
 	 */
 	public static Map<Language, LanguageProfile> builtInLanguages() throws IOException {
 		if (builtInLanguages == null) {
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY)))) {
-				builtInLanguages = new EnumMap<>(Language.class);
-				for (Language language : reader.lines().map(Language::from).filter(l -> l != Language.UNKNOWN).collect(Collectors.toSet())) {
-					builtInLanguages.put(language, readBuiltIn(language));
+			builtInLanguages = new EnumMap<>(Language.class);
+			for (Language language : Language.values()) {
+				LanguageProfile languageProfile = readBuiltIn(language);
+				if (languageProfile != null) {
+					builtInLanguages.put(language, languageProfile);
 				}
 			}
 			builtInLanguages = Collections.unmodifiableMap(builtInLanguages);
@@ -39,8 +37,8 @@ public class LanguageProfiles {
 	}
 
 	private static LanguageProfile readBuiltIn(Language language) throws IOException {
-		try (InputStream in = LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + "/" + language.name())) {
-			return LanguageProfile.read(language, in);
+		try (InputStream inputStream = LanguageProfiles.class.getResourceAsStream(LANGUAGE_PROFILE_DIRECTORY + language.name())) {
+			return inputStream == null ? null : LanguageProfile.read(language, inputStream);
 		}
 	}
 }
