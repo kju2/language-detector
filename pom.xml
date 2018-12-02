@@ -4,7 +4,7 @@
 
 	<groupId>io.github.kju2.languagedetector</groupId>
 	<artifactId>language-detector</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.4</version>
 	<packaging>jar</packaging>
 
 	<name>language-detector</name>
@@ -23,7 +23,7 @@
 		<connection>scm:git:git@github.com:kju2/language-detector.git</connection>
 		<developerConnection>scm:git:git@github.com:kju2/language-detector.git</developerConnection>
 		<url>https://github.com/kju2/language-detector.git</url>
-		<tag>HEAD</tag>
+		<tag>language-detector-1.0.4</tag>
 	</scm>
 
 	<issueManagement>
