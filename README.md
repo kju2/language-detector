@@ -1,15 +1,26 @@
 # language-detector
 
-Language Detection Library for Java
+## Try it out
 
-    <dependency>
-        	<groupId>io.github.kju2.languagedetector</groupId>
-		<artifactId>language-detector</artifactId>
-		<version>1.0.3</version>
-    </dependency>
-
+```bash
+curl -X POST https://k18vr57k5l.execute-api.eu-central-1.amazonaws.com/default/languageDetectorV1 \
+  -H 'x-api-key: eFU71njyBpYOE0O6NUqW5mk7ZtmpYYO5fCe7s8u3' \
+  -d '"Now, here, you see, it takes all the running you can do, to keep in the same place."'
+```
 
 ## How to Use
+
+Add the dependecy in your "pom.xml":
+
+```xml
+<dependency>
+    	<groupId>io.github.kju2.languagedetector</groupId>
+	<artifactId>language-detector</artifactId>
+	<version>1.0.3</version>
+</dependency>
+```
+
+Then create an instance of the LanguageDetector and feed it some text:
 
 ```java
 LanguageDetector detector = new LanguageDetector();
