@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset='utf8'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Language Detector</title>
+
+	<link rel='stylesheet' href='bundle.css'>
+</head>
+
+<body>
+	<nav class="navbar" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="/"><strong class="title">LANGUAGE DETECTOR</strong></a>
+
+			<span role="button" class="navbar-burger burger" aria-label="menue" aria-expanded="false" data-target="navbarMenu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+		</div>
+		<div id="navbarMenu" class="navbar-menu">
+			<div class="navbar-end">
+				<span class="navbar-item">
+					<a class="button is-outlined" href="https://github.com/kju2/language-detector">
+						<img id="github-logo" class="icon" src="github.svg" alt="Github Logo" />
+						<span title="View Source">View Source</span>
+					</a>
+				</span>
+			</div>
+		</div>
+	</nav>
+	<section class="hero is-info is-medium is-fullheight-with-navbar">
+		<div class="hero-body">
+			<div class="container ">
+				<div class="column is-6 is-offset-3">
+					<h1 class="title is-2">LANGUAGE DETECTOR</h1>
+					<h2 class="subtitle is-4">To know in which language a text is written. Detects 68 language.</h2>
+					<div id="detector" class="box"></div>
+					<div class="buttons are-medium is-centered">
+						<a class="button is-success is-inverted is-outlined" href="https://github.com/kju2/language-detector/blob/master/README.md">
+							<span title="View Documenation">View Documentation</span>
+						</a>
+						<a class="button is-danger is-inverted is-outlined" href="https://github.com/kju2/language-detector">
+							<span title="View Source">View Source</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src='bundle.js'></script>
+</body>
+
+</html>
